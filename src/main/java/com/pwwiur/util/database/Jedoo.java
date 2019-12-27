@@ -13,9 +13,9 @@ public class Jedoo {
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String HOST = "jdbc:mysql://127.0.0.1";
     private final String PORT = "3306";
-    private final String DATABASE = "database_name";
-    private final String USER = "username";
-    private final String PASSWORD = "password";
+    private final String DATABASE = "betwin90_melo";
+    private final String USER = "pwwiur";
+    private final String PASSWORD = "F9U8NSzfRX8cYdWv";
 
     public Jedoo(){
         init();
@@ -30,7 +30,9 @@ public class Jedoo {
             config.setPassword(PASSWORD);
             datasource = new HikariDataSource( config );
         }
-        catch (Exception ignored) {}
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public ResultSetHandler getResultSetHandler() throws SQLException {
         return new ResultSetHandler(datasource.getConnection());
@@ -59,7 +61,7 @@ public class Jedoo {
         }
     }
     public int delete(String table, String where, Object[] shits) throws SQLException {
-        return modify("DELETE FROM " + table + " WHERE " + where, shits);
+        return modify("DELETE FROM " + table + (where.isEmpty() ? "" : " WHERE " + where), shits);
     }
     public int delete(String table, String where, Object shit) throws SQLException {
         return delete(table, where, new Object[]{shit});
@@ -102,7 +104,7 @@ public class Jedoo {
     }
     public int update(String table, String[] columns, Object[] columnsShits, String where, Object[] whereShits) throws SQLException {
         try(ResultSetHandler resultSetHandler = getResultSetHandler()) {
-            String query = "UPDATE " + table + " SET " + String.join(" = ?, ", columns) + " = ? WHERE " + where;
+            String query = "UPDATE " + table + " SET " + String.join(" = ?, ", columns) + " = ? " + (where.isEmpty() ? "" : " WHERE " + where);
             resultSetHandler.prepareStatement(query);
 
             int i = 0;
@@ -221,7 +223,7 @@ public class Jedoo {
     public ResultSetHandler query(String query, Object[] shits) throws SQLException {
         ResultSetHandler resultSetHandler = getResultSetHandler();
         resultSetHandler.prepareStatement(query);
-
+        System.out.println(query);
         for (int i = 0; i < shits.length; i++) {
             resultSetHandler.statement.setObject(i + 1, shits[i]);
         }
@@ -236,7 +238,7 @@ public class Jedoo {
         return query(query, new Object[0]);
     }
     public ResultSetHandler select(String table, String columns, String where, Object[] shits) throws SQLException {
-        return query("SELECT " + columns + " FROM " + table + " WHERE " + where, shits);
+        return query("SELECT " + columns + " FROM " + table + (where.isEmpty() ? "" : " WHERE " + where), shits);
     }
     public ResultSetHandler select(String table, String columns, String where, Object shit) throws SQLException {
         return select(table, columns, where, new Object[] {shit});
@@ -327,7 +329,7 @@ public class Jedoo {
         return sum(table, column, "");
     }
     public boolean has(String table, String where, Object[] shits) throws SQLException {
-        try(ResultSetHandler resultSetHandler = query("SELECT EXISTS (SELECT 1 FROM " + table + " WHERE " + where + ") as has", shits)) {
+        try(ResultSetHandler resultSetHandler = query("SELECT EXISTS (SELECT 1 FROM " + table + (where.isEmpty() ? "" : " WHERE " + where) + ") as has", shits)) {
             return resultSetHandler.first().getResultSet().getInt("has") == 1;
         }
     }
@@ -345,4 +347,5 @@ public class Jedoo {
             return resultSetHandler.first().getResultSet().getInt("has") == 1;
         }
     }
+
 }
