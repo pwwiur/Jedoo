@@ -30,19 +30,30 @@ In this example a user from database is selected:
 ```java 
 try(ResultSetHandler rsh = database.select("users", "*", "username = ?", "pwwiur")) {
     String name = rsh.first().resultset.getString("name");
-    System.out.println(name);
+    System.out.println("User Name:" + name);
 }
 ```
+
 In this example all users are selected:
 ```java 
 try(ResultSetHandler rsh = database.all("users")) {
     while(rsh.next()) {
         System.out.println("User ID:" + rsh.getLong("id"));
-        System.out.println("User Name:" + rsh.getLong("name"));
+        System.out.println("User Name:" + rsh.getString("name"));
     }
 }
 ```
+
+You can a also convert selected data from database to json array by Jedoo:
+```java 
+try(ResultSetHandler rsh = database.all("users")) {
+    JSONArray json = rsh.toJSON();
+    System.out.println("User Name:" + json.get(0).getString("name"));
+}
+```
+
 ### Insert
+
 There is plenty of functions in jedoo to insert data to database, but the most common one is:
 ```java
 long id = database.insert("users", new Object[][]{
@@ -51,6 +62,7 @@ long id = database.insert("users", new Object[][]{
 });
 ```
 ### Update
+
 There is also some functions for updates exection in Jedoo, One of them is:
 ```java
 database.update("users",  new Object[][]{
@@ -58,6 +70,7 @@ database.update("users",  new Object[][]{
     {"active", 0}
 }, userId);
 ```
+
 Also you can use setter functions to update one column of \[a row of\] a table. For example:
 ```java
 database.setString("users", "email", "pwwiur@yahoo.com", userId);
