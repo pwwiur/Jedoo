@@ -13,9 +13,9 @@ public class Jedoo {
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String HOST = "jdbc:mysql://127.0.0.1";
     private final String PORT = "3306";
-    private final String DATABASE = "betwin90_melo";
-    private final String USER = "pwwiur";
-    private final String PASSWORD = "F9U8NSzfRX8cYdWv";
+    private final String DATABASE = "database_name";
+    private final String USER = "username";
+    private final String PASSWORD = "password";
 
     public Jedoo(){
         init();
