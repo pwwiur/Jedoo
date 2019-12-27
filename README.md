@@ -7,18 +7,19 @@ Jedoo is using [HikariCP v.3.4.1](https://github.com/brettwooldridge/HikariCP) d
 ## Getting started
 To get started with Jedoo, Clone `com.pwwiur.util.database` package to your project and set database connection information at `Jedoo.java` file:
 ```java
-    private final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private final String HOST = "jdbc:mysql://127.0.0.1";
-    private final String PORT = "3306";
-    private final String DATABASE = "database_name";
-    private final String USER = "username";
-    private final String PASSWORD = "password";
+private final String DRIVER = "com.mysql.cj.jdbc.Driver";
+private final String HOST = "jdbc:mysql://127.0.0.1";
+private final String PORT = "3306";
+private final String DATABASE = "database_name";
+private final String USER = "username";
+private final String PASSWORD = "password";
 ```
 
 Now you can add database singleton to your java classes by using `import static`:
 ```java
-    import static com.pwwiur.util.database.Jedoo.database;
+import static com.pwwiur.util.database.Jedoo.database;
 ```
+
 ## Documentation
 Using Jedoo is very easy. A test file has been added to source code to know how is using Jedoo possible.It has plenty of functions that helps developerts to query fast. Here is some of those functions:
 
@@ -27,41 +28,41 @@ Using Jedoo is very easy. A test file has been added to source code to know how 
 
 In this example a user from database is selected:
 ```java 
-    try(ResultSetHandler rsh = database.select("users", "*", "username = ?", "pwwiur")) {
-        String name = rsh.first().resultset.getString("name");
-        System.out.println(name);
-    }
+try(ResultSetHandler rsh = database.select("users", "*", "username = ?", "pwwiur")) {
+    String name = rsh.first().resultset.getString("name");
+    System.out.println(name);
+}
 ```
 In this example all users are selected:
 ```java 
-    try(ResultSetHandler rsh = database.all("users")) {
-        while(rsh.next()) {
-            System.out.println("User ID:" + rsh.getLong("id"));
-            System.out.println("User Name:" + rsh.getLong("name"));
-        }
+try(ResultSetHandler rsh = database.all("users")) {
+    while(rsh.next()) {
+        System.out.println("User ID:" + rsh.getLong("id"));
+        System.out.println("User Name:" + rsh.getLong("name"));
     }
+}
 ```
 ### Insert
 There is plenty of functions in jedoo to insert data to database, but the most common one is:
 ```java
-    long id = database.insert("users", new Object[][]{
-        {"name", "Amir"},
-        {"username", "pwwuir"}
-    });
+long id = database.insert("users", new Object[][]{
+    {"name", "Amir"},
+    {"username", "pwwuir"}
+});
 ```
 ### Update
 There is also some functions for updates exection in Jedoo, One of them is:
 ```java
-    database.update("users",  new Object[][]{
-        {"name", "Amir Forsati"},
-        {"active", 0}
-    }, userId);
+database.update("users",  new Object[][]{
+    {"name", "Amir Forsati"},
+    {"active", 0}
+}, userId);
 ```
 Also you can use setter functions to update one column of \[a row of\] a table. For example:
 ```java
-    database.setString("users", "email", "pwwiur@yahoo.com", userId);
+database.setString("users", "email", "pwwiur@yahoo.com", userId);
 ```
-### Others
+### Other methods
 
 There so many usefull methods to accelerate development process of project. Their list are mentiod below:
 
@@ -87,3 +88,5 @@ There so many usefull methods to accelerate development process of project. Thei
  - **setLong**: To set value of a long typed column of a record by its ID.
  - **setInt**: To set value of a int typed column of a record by its ID.
  - **setBytes**: To set value of a byte array typed column of a record by its ID.
+
+Understanding the functions of Jedoo is easy, You can check source code for more information about their arguments and return types.
