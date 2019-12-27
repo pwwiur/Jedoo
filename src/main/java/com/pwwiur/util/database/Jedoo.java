@@ -223,7 +223,6 @@ public class Jedoo {
     public ResultSetHandler query(String query, Object[] shits) throws SQLException {
         ResultSetHandler resultSetHandler = getResultSetHandler();
         resultSetHandler.prepareStatement(query);
-        System.out.println(query);
         for (int i = 0; i < shits.length; i++) {
             resultSetHandler.statement.setObject(i + 1, shits[i]);
         }
