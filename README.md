@@ -38,8 +38,8 @@ In this example all users are selected:
 ```java 
 try(ResultSetHandler rsh = database.all("users")) {
     while(rsh.next()) {
-        System.out.println("User ID:" + rsh.getLong("id"));
-        System.out.println("User Name:" + rsh.getString("name"));
+        System.out.println("User ID:" + rsh.resultset.getLong("id"));
+        System.out.println("User Name:" + rsh.resultset.getString("name"));
     }
 }
 ```
@@ -48,7 +48,7 @@ You can a also convert selected data from database to json array by Jedoo:
 ```java 
 try(ResultSetHandler rsh = database.all("users")) {
     JSONArray json = rsh.toJSON();
-    System.out.println("User Name:" + json.get(0).getString("name"));
+    ...
 }
 ```
 
@@ -75,7 +75,7 @@ Also you can use setter functions to update one column of \[a row of\] a table. 
 ```java
 database.setString("users", "email", "pwwiur@yahoo.com", userId);
 ```
-### Other methods
+### Methods list
 
 There so many usefull methods to accelerate development process of project. Their list are mentiod below:
 
@@ -87,16 +87,16 @@ There so many usefull methods to accelerate development process of project. Thei
  - **getLong**: To get a long typed column of a record by its ID.
  - **getInt**: To get a integer typed column of a record by its ID.
  - **getBytes**: To get a byte array typed column of a record by its ID.
- - **count**: To count records of a table \[by some conditions\].
- - **max**: To calculate maximum number of a column of records of a table \[by some conditions\].
- - **min**: To calculate minimum number of a column of records of a table \[by some conditions\].
- - **avg**: To calculate avarage number of a column of records of a table \[by some conditions\].
- - **sum**: To calculate sum of a column of records of a table \[by some conditions\].
- - **has**: To check if record exist in database table by some conditions. This function also can be used to check if a table exists in database.
+ - **count**: To count records of a table by some conditions.
+ - **max**: To calculate maximum number of a column of records of a table by some conditions.
+ - **min**: To calculate minimum number of a column of records of a table by some conditions.
+ - **avg**: To calculate avarage number of a column of records of a table by some conditions.
+ - **sum**: To calculate sum of a column of records of a table by some conditions.
+ - **has**: To check if record(s) or a table exist in database.
  - **modify**: To execute custom updates to database.
  - **insert**: To insert new data to database tables.
  - **delete**: To delete some data from a database table.
- - **update**: To update record\[s\] in a table.
+ - **update**: To update record(s) in a table.
  - **setString**: To set value of a string typed column of a record by its ID.
  - **setLong**: To set value of a long typed column of a record by its ID.
  - **setInt**: To set value of a int typed column of a record by its ID.
