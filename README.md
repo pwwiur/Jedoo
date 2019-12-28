@@ -103,3 +103,11 @@ There so many usefull methods to accelerate development process of project. Thei
  - **setBytes**: To set value of a byte array typed column of a record by its ID.
 
 Understanding the functions of Jedoo is easy, You can check source code for more information about their arguments and return types.
+
+## Contribution Guides
+For most of time, Medoo is using develop branch for adding feature and fixing bug, and the branch will be merged into master branch while releasing a public version. For contribution, submit your code to the develop branch, and start a pull request into it.
+
+On develop branch, each commits are started with [fix], [feature] or [update] tag to indicate the change.
+
+## License
+This software is licensed under Apache v.2 license, the terms you may find is in the file named `LICENSE.txt`.
