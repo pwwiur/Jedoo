@@ -176,7 +176,7 @@ public class Jedoo {
     }
     public long getLong(String table, String column, long id) throws SQLException {
         try(ResultSetHandler resultSetHandler = query("SELECT " + column + " FROM " + table + " WHERE id = " + id)) {
-            return resultSetHandler.first().getResultSet().getLong(column);
+            return resultSetHandler.first().resultset.getLong(column);
         }
     }
     public int setInt(String table, String column, int value, long id) throws SQLException {
@@ -189,7 +189,7 @@ public class Jedoo {
     }
     public int getInt(String table, String column, long id) throws SQLException {
         try(ResultSetHandler resultSetHandler = query("SELECT " + column + " FROM " + table + " WHERE id = " + id)) {
-            return resultSetHandler.first().getResultSet().getInt(column);
+            return resultSetHandler.first().resultset.getInt(column);
         }
     }
     public int setString(String table, String column, String value, long id) throws SQLException {
@@ -203,7 +203,7 @@ public class Jedoo {
     }
     public String getString(String table, String column, long id) throws SQLException {
         try(ResultSetHandler resultSetHandler = query("SELECT " + column + " FROM " + table + " WHERE id = " + id)) {
-            return resultSetHandler.first().getResultSet().getString(column);
+            return resultSetHandler.first().resultset.getString(column);
         }
     }
     public int setBytes(String table, String column, byte[] bytes, long id) throws SQLException {
@@ -217,7 +217,7 @@ public class Jedoo {
     }
     public byte[] getBytes(String table, String column, long id) throws SQLException {
         try(ResultSetHandler resultSetHandler = query("SELECT " + column + " FROM " + table + " WHERE id = " + id)) {
-            return resultSetHandler.first().getResultSet().getBytes(column);
+            return resultSetHandler.first().resultset.getBytes(column);
         }
     }
     public ResultSetHandler query(String query, Object[] shits) throws SQLException {
@@ -259,7 +259,7 @@ public class Jedoo {
     }
     public int count(String table, String where, Object[] shits) throws SQLException {
         try(ResultSetHandler resultSetHandler = select(table, "COUNT(*) as count", where, shits)) {
-            return resultSetHandler.first().getResultSet().getInt("count");
+            return resultSetHandler.first().resultset.getInt("count");
         }
     }
     public int count(String table, String where, Object shit) throws SQLException {
@@ -273,7 +273,7 @@ public class Jedoo {
     }
     public int max(String table, String column, String where, Object[] shits) throws SQLException {
         try(ResultSetHandler resultSetHandler = select(table, "Max(" + column + ") as max", where, shits)) {
-            return resultSetHandler.first().getResultSet().getInt("max");
+            return resultSetHandler.first().resultset.getInt("max");
         }
     }
     public int max(String table, String column, String where, Object shit) throws SQLException {
@@ -287,7 +287,7 @@ public class Jedoo {
     }
     public int min(String table, String column, String where, Object[] shits) throws SQLException {
         try(ResultSetHandler resultSetHandler = select(table, "Min(" + column + ") as max", where, shits)) {
-            return resultSetHandler.first().getResultSet().getInt("max");
+            return resultSetHandler.first().resultset.getInt("max");
         }
     }
     public int min(String table, String column, String where, Object shit) throws SQLException {
@@ -301,7 +301,7 @@ public class Jedoo {
     }
     public int avg(String table, String column, String where, Object[] shits) throws SQLException {
         try(ResultSetHandler resultSetHandler = select(table, "AVG(" + column + ") as max", where, shits)) {
-            return resultSetHandler.first().getResultSet().getInt("max");
+            return resultSetHandler.first().resultset.getInt("max");
         }
     }
     public int avg(String table, String column, String where, Object shit) throws SQLException {
@@ -315,7 +315,7 @@ public class Jedoo {
     }
     public int sum(String table, String column, String where, Object[] shits) throws SQLException {
         try(ResultSetHandler resultSetHandler = select(table, "SUM(" + column + ") as sum", where, shits)) {
-            return resultSetHandler.first().getResultSet().getInt("sum");
+            return resultSetHandler.first().resultset.getInt("sum");
         }
     }
     public int sum(String table, String column, String where, Object shit) throws SQLException {
@@ -329,7 +329,7 @@ public class Jedoo {
     }
     public boolean has(String table, String where, Object[] shits) throws SQLException {
         try(ResultSetHandler resultSetHandler = query("SELECT EXISTS (SELECT 1 FROM " + table + (where.isEmpty() ? "" : " WHERE " + where) + ") as has", shits)) {
-            return resultSetHandler.first().getResultSet().getInt("has") == 1;
+            return resultSetHandler.first().resultset.getInt("has") == 1;
         }
     }
     public boolean has(String table, String where, Object shit) throws SQLException {
@@ -343,8 +343,7 @@ public class Jedoo {
     }
     public boolean has(String table) throws SQLException {
         try(ResultSetHandler resultSetHandler = query("SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'kok' AND table_name = '" + table + "') as has")) {
-            return resultSetHandler.first().getResultSet().getInt("has") == 1;
+            return resultSetHandler.first().resultset.getInt("has") == 1;
         }
     }
-
 }
