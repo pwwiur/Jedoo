@@ -17,10 +17,6 @@ public class ResultSetHandler implements AutoCloseable {
     ResultSetHandler(Connection connection){
         this.connection = connection;
     }
-
-    public ResultSet getResultSet() {
-        return resultset;
-    }
     public void prepareStatement(String query) throws SQLException {
         statement = connection.prepareStatement(query);
     }
