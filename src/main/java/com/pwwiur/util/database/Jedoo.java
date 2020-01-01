@@ -112,7 +112,7 @@ public class Jedoo {
                 resultSetHandler.statement.setObject(i + 1, columnsShits[i]);
             }
             for (; i < columnsShits.length + whereShits.length; i++) {
-                resultSetHandler.statement.setObject(i + 1, whereShits[i]);
+                resultSetHandler.statement.setObject(i + 1, whereShits[i - columnsShits.length]);
             }
             return resultSetHandler.executeUpdate();
         }
