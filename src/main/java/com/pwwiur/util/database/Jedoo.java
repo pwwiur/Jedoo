@@ -66,6 +66,9 @@ public class Jedoo {
     public int delete(String table, String where, Object shit) throws SQLException {
         return delete(table, where, new Object[]{shit});
     }
+    public int delete(String table, long id) throws SQLException {
+        return delete(table, "id = ?", id);
+    }
     public long insert(String table, String[] order, Object[] shits) throws SQLException {
         try(ResultSetHandler resultSetHandler = getResultSetHandler()) {
             String marks = new String(new char[shits.length]).replace("\0", "?, ");
