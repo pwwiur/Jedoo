@@ -45,13 +45,42 @@ public class ResultSetHandler implements AutoCloseable {
     public ResultSetHandler first() throws SQLException {
         return navigate(1);
     }
-
     public void close() throws SQLException {
         if(resultset != null) resultset.close();
         if(statement != null) statement.close();
         if(connection != null) connection.close();
     }
+    public boolean has(String column){
+        try{
+            if (resultset != null) {
+                resultset.findColumn(column);
+                return true;
+            }
+        } catch (SQLException ignore){}
+        return false;
+    }
+    public List toList(){
+        try {
+            if(resultset == null) {
+                return null;
+            }
+            ResultSetMetaData md = resultset.getMetaData();
+            int columns = md.getColumnCount();
+            List<Map<String, Object>> list = new ArrayList<>();
+            while (resultset.next()) {
+                Map<String, Object> row = new HashMap<>(columns);
+                for (int i = 1; i <= columns; ++i) {
+                    row.put(md.getColumnName(i), resultset.getObject(i));
+                }
+                list.add(row);
+            }
 
+            return list;
+        }
+        catch (Throwable e) {
+            return null;
+        }
+    }
     public JSONArray toJSON(){
         try {
             if(resultset == null) {
@@ -74,7 +103,6 @@ public class ResultSetHandler implements AutoCloseable {
         catch (Throwable e) {
             return null;
         }
-
     }
 
     @Override
