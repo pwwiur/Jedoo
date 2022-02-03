@@ -105,9 +105,9 @@ There so many usefull methods to accelerate development process of project. Thei
 Understanding the functions of Jedoo is easy, You can check source code for more information about their arguments and return types.
 
 ## Contribution Guides
-For most of time, Medoo is using dev branch for adding feature and fixing bug, and the branch will be merged into master branch while releasing a public version. For contribution, submit your code to the dev branch, and start a pull request into it.
+For most of the time, Jedoo is using dev branch for adding feature and fixing bug, and the branch will be merged into master branch while releasing a public version. For contribution, submit your code to the dev branch, and start a pull request into it.
 
 On dev branch, each commits are started with [fix], [feature] or [update] tag to indicate the change.
 
 ## License
-This software is licensed under Apache v.2 license, the terms you may find is in the file named `LICENSE.txt`.
+This software is licensed under Apache v2 license, the terms you may find is in the file named `LICENSE.txt`.
